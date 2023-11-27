@@ -1,5 +1,5 @@
 #include <iostream>
-#include "matrix";
+#include "matrix"
 using namespace std;
 
 // struct jugador {
@@ -32,13 +32,14 @@ class tablero {
             
         }
         void poner_barquito( barquito barco) {
-            for (int i = barco.y; i < barco.y + barco.alto; i++) {
-                for (int j = barco.x; j < barco.x + barco.ancho; j++) {
-                    tab[i][j] = 'X';
+            for (int i = barco.x; i < barco.x + barco.alto; i++) {
+                for (int j = barco.y; j < barco.y + barco.ancho; j++) {
+                    tab[j][i] = 'X';
                 }
             }
         }
         void mostrar_tablero() {
+            std::cout << "UBICACIONES DE LOS BARQUITOS:" << endl;
             std::cout << "-----------------------------------------" << endl;
             for (int i = 0; i < 10; i++) {
                 for (int j = 0; j < 10; j++) {
@@ -48,21 +49,26 @@ class tablero {
                     std::cout << endl;
                     std::cout << "-----------------------------------------" << endl;
             }
-            // std::cout << "-----------------------------------------" << endl;
+            std::cout << endl << endl;
         }
         
 };
 
 int main() {
 	
+    int alto = 2, 
+        ancho = 3, 
+        xPos = 2, 
+        yPos = 6;
+
     tablero tb1;
-    int alto = 2, ancho = 3, xPos = 2, yPos = 6;
     barquito barco1 = {alto, ancho, xPos, yPos};
+
+    tb1.mostrar_tablero();
     tb1.poner_barquito(barco1);
     tb1.mostrar_tablero();
 
 	return 0;
 }
-//kevin es el lider ahora
-// LAS PELOTAS
+
 
