@@ -21,6 +21,16 @@ class tablero {
                 }
             }
         }
+		bool se_puede_poner(barquito barco) {
+			for (int i = barco.x; i < barco.x + barco.alto; i++) {
+				for (int j = barco.y; j < barco.y + barco.ancho; j++) {
+					if(tab[j][i]=='X'){
+						return false;
+					}
+				}
+			}
+			return true;
+		}
         void mostrar_tablero() {
             std::cout << "UBICACIONES DE LOS BARQUITOS:" << endl;
             std::cout << "---------------------------------------------------------" << endl;
@@ -82,6 +92,11 @@ struct jugador {
     ataques ataq;
 };
 
+struct personaje {
+	string nombre;
+	string url;
+};
+
 bool es_ganador( matrix<char> a ){
 	int cont=0;
 	for(int i=0;i<a.size(0);i++){
@@ -103,8 +118,8 @@ bool es_ganador( matrix<char> a ){
 //         ian.ataque()
 //         if (es_ganador(ian))
 //             ganador == ian.nombre
-        
-
+	
+	
 int main() {
 	
     tablero tb1, tb2;
@@ -134,20 +149,26 @@ int main() {
             std::cout << "TURNO DE " << jr.nombre << endl;
             std::cout << "\nQueres el barquito Nro " << contBarquitos << " en verticar u horizontal?\n" << endl;
 
-            std::cout << "1. Vertical\n\n";
-            for (int i = 0; i < barq.alto; i++) 
-                for (int i = 0; i < barq.ancho; i++) 
-                    std::cout << "\tX" << endl;
-            
-            std::cout << endl;
-
-            std::cout << "2. Horizontal" << endl;
-            std::cout << endl << "       ";
-            for (int i = 0; i < barq.ancho; i++) 
-                for (int i = 0; i < barq.alto; i++) 
-                    std::cout << "X";
-            
-            
+			
+			std::cout << "1. Vertical\n\n";
+			for (int i = 0; i < barq.ancho; i++){ 
+				for (int i = 0; i < barq.alto; i++){ 
+					std::cout << "X";
+				}
+				cout<<endl;
+			}
+			
+			std::cout << endl;
+		
+			std::cout << "2. Horizontal" << endl;
+			std::cout << endl;
+			for (int i = 0; i < barq.alto; i++) {
+				for (int i = 0; i < barq.ancho; i++) {
+					std::cout << "X" ;
+				}
+				cout<<endl;
+			}
+			
             std::cout << "\n: ";
             // Se ingresa la orientacion del barquito
             int orientacion; cin >> orientacion;
@@ -172,12 +193,26 @@ int main() {
 
             std::cout << "Columna: ";
             std::cin >> barq.x; std::cout << "\n";
-
-            // Agrega el barquito al jugador
-            jr.tab.poner_barquito(barq);
-            contBarquitos++;
-        }
-
+			
+			while( jr.tab.se_puede_poner(barq)==false){
+				system("cls");
+				// Otra cosa del MENU (no tiene relevancia)
+				std::cout << "Coordenadas no validas. Ingrese unas nuevas\n\n";
+				jr.tab.mostrar_tablero();
+				
+				// Establece la ubicacion del barquito
+				std::cout << "\nFila: ";
+				std::cin >> barq.y;
+				
+				std::cout << "Columna: ";
+				std::cin >> barq.x; std::cout << "\n";
+            
+			}
+			
+		// Agrega el barquito al jugador
+		jr.tab.poner_barquito(barq);
+		contBarquitos++;
+		}
         system("cls"); // Muestra los tableros de ambos
         for ( jugador jr: jugadores ) {
             std::cout << "Estos son los barquitos de " << jr.nombre << endl;
@@ -208,7 +243,7 @@ int main() {
             break;
         }
          
-        std::cout << "Es el turno de" << jugadores[0].nombre << endl;
+        std::cout << "Es el turno de" << jugadores[1].nombre << endl;
         std::cout << "Ingrese las coordenadas del ataque: ";
 
         std::cout << "Fila: ";
