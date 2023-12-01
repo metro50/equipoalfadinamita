@@ -70,6 +70,9 @@ class ataques {
             }
             std::cout << endl << endl;
         }
+        matrix<char> obtener_ataques() {
+            return bombitas;
+        }
 };
 
 struct jugador {
@@ -79,7 +82,7 @@ struct jugador {
     ataques ataq;
 };
 
-/*int contador(ataques a){
+bool es_ganador( matrix<char> a ){
 	int cont=0;
 	for(int i=0;i<a.size(0);i++){
 		for(int j=0;j<a.size(1);j++){
@@ -88,9 +91,19 @@ struct jugador {
 			}
 		}
 	}
-return cont;	
+    return cont == 32;	
 }
-	*/
+
+// string ganador = ""
+// while ( ganador == "" )
+//     knd.ataque()
+//     if (es_ganador(knd))
+//         ganador == knd.nombre
+//     else 
+//         ian.ataque()
+//         if (es_ganador(ian))
+//             ganador == ian.nombre
+        
 
 int main() {
 	
@@ -172,6 +185,50 @@ int main() {
             std::cout << endl;
         }
     }
+
+    string ganador = "";
+    while ( ganador == "" ) {
+        std::cout << "Es el turno de" << jugadores[0].nombre << endl;
+        std::cout << "Ingrese las coordenadas del ataque: ";
+
+        std::cout << "Fila: ";
+        int fila; std::cin >> fila; std::cout << "\n";
+
+        std::cout << "Columna: ";
+        int columna; std::cin >> columna; std::cout << "\n";
+
+        jugadores[0].ataq.AgregarAtaque(columna, fila, jugadores[1].tab);
+        if (jugadores[1].tab.hay_barquito_en(columna, fila)) 
+            std::cout << "Le diste a un barquito :D" << endl;
+        else 
+            std::cout << "No le diste a ningun barquito :(" << endl;
+
+        if ( es_ganador(jugadores[0].ataq.obtener_ataques()) ) {
+            ganador = jugadores[0].nombre;
+            break;
+        }
+         
+        std::cout << "Es el turno de" << jugadores[0].nombre << endl;
+        std::cout << "Ingrese las coordenadas del ataque: ";
+
+        std::cout << "Fila: ";
+        std::cin >> fila; std::cout << "\n";
+
+        std::cout << "Columna: ";
+        std::cin >> columna; std::cout << "\n";
+
+        jugadores[1].ataq.AgregarAtaque(columna, fila, jugadores[0].tab);
+        if (jugadores[0].tab.hay_barquito_en(columna, fila)) 
+            std::cout << "Le diste a un barquito :D" << endl;
+        else 
+            std::cout << "No le diste a ningun barquito :(" << endl;
+
+        if ( es_ganador(jugadores[1].ataq.obtener_ataques()) ) {
+            ganador = jugadores[1].nombre;
+        }
+    }
+
+    std::cout << "Quien gano fue " << ganador << endl;
 
 	return 0;
 }
