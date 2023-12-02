@@ -4,86 +4,135 @@
 #include "matrix"
 using namespace std;
 
+// Struct Barquito
+
 struct barquito {
     int ancho, alto;
     int x, y;
 };
 
+
+// Funciones Auxiliares
+
+bool es_ganador( matrix<char> ataques ){
+	int cantAtaques=0;
+	for( int i = 0; i < (int)ataques.size(0); i++ )
+		for( int j = 0; j < (int)ataques.size(1); j++ )
+			if ( ataques[i][j] == 'A' )
+				cantAtaques++;
+
+    return cantAtaques == 32;	
+}
+
+
+// Definicion Clase Tablero ("tablero.h")
+
 class tablero {
     private:
         matrix<char> tab;
     public:
-        tablero() : tab(14,14,' ') {}
-        void poner_barquito( barquito barco) {
-            for (int i = barco.x; i < barco.x + barco.alto; i++) {
-                for (int j = barco.y; j < barco.y + barco.ancho; j++) {
-                    tab[j][i] = 'X';
-                }
-            }
-        }
-		bool se_puede_poner(barquito barco) {
-			for (int i = barco.x; i < barco.x + barco.alto; i++) {
-				for (int j = barco.y; j < barco.y + barco.ancho; j++) {
-					if(tab[j][i]=='X'){
-						return false;
-					}
-				}
-			}
-			return true;
-		}
-        void mostrar_tablero() {
-            std::cout << "UBICACIONES DE LOS BARQUITOS:" << endl;
-            std::cout << "---------------------------------------------------------" << endl;
-            for (int i = 0; i < 14; i++) {
-                for (int j = 0; j < 14; j++) {
-                    if (j == 0) std::cout << "|";
-                    std::cout << " " << tab[i][j] << " |";
-                }
-                std::cout << endl;
-                std::cout << "---------------------------------------------------------" << endl;
-            }
-            std::cout << endl << endl;
-        }
-        bool hay_barquito_en( int posX, int posY ) {
-            return tab[posY][posX] == 'X';
-        }
-        matrix<char> obtener_tablero() {
-            return tab;
-        }
-        
+        tablero();
+        void poner_barquito( barquito barco);
+		bool se_puede_poner(barquito barco);
+        void mostrar_tablero();
+        bool hay_barquito_en( int posX, int posY );
+        matrix<char> obtener_tablero();
 };
+
+
+// Cuerpo Clase Tablero y Metodos ("tablero.cpp")
+
+tablero::tablero() : tab(14,14,' ') {}
+
+void tablero::poner_barquito( barquito barco) {
+    for (int i = barco.x; i < barco.x + barco.alto; i++) {
+        for (int j = barco.y; j < barco.y + barco.ancho; j++) {
+            tab[j][i] = 'X';
+        }
+    }
+}
+
+bool tablero::se_puede_poner(barquito barco) {
+    for (int i = barco.x; i < barco.x + barco.alto; i++) {
+        for (int j = barco.y; j < barco.y + barco.ancho; j++) {
+            if(tab[j][i]=='X'){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void tablero::mostrar_tablero() {
+    std::cout << "UBICACIONES DE LOS BARQUITOS:" << endl;
+    std::cout << "---------------------------------------------------------" << endl;
+    for (int i = 0; i < 14; i++) {
+        for (int j = 0; j < 14; j++) {
+            if (j == 0) std::cout << "|";
+            std::cout << " " << tab[i][j] << " |";
+        }
+        std::cout << endl;
+        std::cout << "---------------------------------------------------------" << endl;
+    }
+    std::cout << endl << endl;
+}
+
+bool tablero::hay_barquito_en( int posX, int posY ) {
+    return tab[posY][posX] == 'X';
+}
+
+matrix<char> tablero::obtener_tablero() {
+    return tab;
+}
+
+
+// Definicion Clase Tablero ("tablero.h")
 
 class ataques {
     private:
         matrix<char> bombitas;
     public:
-        ataques() : bombitas(14,14,' ') {}
-        void AgregarAtaque( int posX, int posY, tablero jugador2 ) {
-            matrix<char> tab2 = jugador2.obtener_tablero();
-
-            if ( tab2[posY][posX] == 'X' ) {
-                bombitas[posY][posX] = 'A';
-            } else {
-                bombitas[posY][posX] = 'F';
-            }
-        }
-        void VerAtaques() {
-            std::cout << "ATAQUES:" << endl;
-            std::cout << "---------------------------------------------------------" << endl;
-            for (int i = 0; i < 14; i++) {
-                for (int j = 0; j < 14; j++) {
-                    if (j == 0) std::cout << "|";
-                    std::cout << " " << bombitas[i][j] << " |";
-                }
-                std::cout << endl;
-                std::cout << "---------------------------------------------------------" << endl;
-            }
-            std::cout << endl << endl;
-        }
-        matrix<char> obtener_ataques() {
-            return bombitas;
-        }
+        ataques();
+        void AgregarAtaque( int posX, int posY, tablero jugador2 );
+        void VerAtaques();
+        matrix<char> obtener_ataques();
 };
+
+
+// Cuerpo Clase Ataques y Metodos ("ataques.cpp")
+
+ataques::ataques() : bombitas(14,14,' ') {}
+
+void ataques::AgregarAtaque( int posX, int posY, tablero jugador2 ) {
+    matrix<char> tab2 = jugador2.obtener_tablero();
+
+    if ( tab2[posY][posX] == 'X' ) {
+        bombitas[posY][posX] = 'A';
+    } else {
+        bombitas[posY][posX] = 'F';
+    }
+}
+
+void ataques::VerAtaques() {
+    std::cout << "ATAQUES:" << endl;
+    std::cout << "---------------------------------------------------------" << endl;
+    for (int i = 0; i < 14; i++) {
+        for (int j = 0; j < 14; j++) {
+            if (j == 0) std::cout << "|";
+            std::cout << " " << bombitas[i][j] << " |";
+        }
+        std::cout << endl;
+        std::cout << "---------------------------------------------------------" << endl;
+    }
+    std::cout << endl << endl;
+}
+
+matrix<char> ataques::obtener_ataques() {
+    return bombitas;
+}
+
+
+// Struct Jugador
 
 struct jugador {
     string nombre;
@@ -92,34 +141,17 @@ struct jugador {
     ataques ataq;
 };
 
+
+// Struct Personaje
+
 struct personaje {
 	string nombre;
 	string url;
 };
 
-bool es_ganador( matrix<char> a ){
-	int cont=0;
-	for(int i=0;i<a.size(0);i++){
-		for(int j=0;j<a.size(1);j++){
-			if (a[i][j]=='A'){
-				cont++;
-			}
-		}
-	}
-    return cont == 32;	
-}
 
-// string ganador = ""
-// while ( ganador == "" )
-//     knd.ataque()
-//     if (es_ganador(knd))
-//         ganador == knd.nombre
-//     else 
-//         ian.ataque()
-//         if (es_ganador(ian))
-//             ganador == ian.nombre
-	
-	
+// Programa Cliente (main)
+
 int main() {
 	
     tablero tb1, tb2;
@@ -139,8 +171,8 @@ int main() {
         {4, 1, 0, 0}       // {4, 1, 11, 10}
     };
 
-    vector<jugador> jugadores ={ian, knd};
-    for(jugador &jr:jugadores){
+    vector<jugador> jugadores = { ian, knd };
+    for( jugador &jr:jugadores ){
         int contBarquitos = 1;
         for ( barquito &barq: barquitos ) {
             
@@ -209,10 +241,11 @@ int main() {
             
 			}
 			
-		// Agrega el barquito al jugador
-		jr.tab.poner_barquito(barq);
-		contBarquitos++;
+            // Agrega el barquito al jugador
+            jr.tab.poner_barquito(barq);
+            contBarquitos++;
 		}
+
         system("cls"); // Muestra los tableros de ambos
         for ( jugador jr: jugadores ) {
             std::cout << "Estos son los barquitos de " << jr.nombre << endl;
@@ -263,6 +296,7 @@ int main() {
         }
     }
 
+    system("cls");
     std::cout << "Quien gano fue " << ganador << endl;
 
 	return 0;
