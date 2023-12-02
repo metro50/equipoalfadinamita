@@ -1,1 +1,1 @@
-posX
+or barco.y < 0 

@@ -4,12 +4,16 @@
 #include "matrix"
 using namespace std;
 
+
 // Struct Barquito
 
 struct barquito {
     int ancho, alto;
     int x, y;
 };
+// A TENER EN CUENTA:
+// -> barquito.x = columna
+// -> barquito.y = fila
 
 
 // Funciones Auxiliares
@@ -22,6 +26,20 @@ bool es_ganador( matrix<char> ataques ){
 				cantAtaques++;
 
     return cantAtaques == 32;	
+}
+
+bool es_ubicable_en_tablero( barquito barco ) {
+    
+    if ( 
+        barco.x < 0 
+        or barco.y < 0 
+        or (barco.x + barco.alto) > 14 
+        or (barco.y + barco.ancho) > 14
+    ) {
+        return false;
+    } 
+    
+    return true;
 }
 
 
@@ -178,6 +196,7 @@ int main() {
             
             // Menu fachero
             system("cls");
+            jr.tab.mostrar_tablero();
             std::cout << "TURNO DE " << jr.nombre << endl;
             std::cout << "\nQueres el barquito Nro " << contBarquitos << " en verticar u horizontal?\n" << endl;
 
@@ -187,7 +206,7 @@ int main() {
 				for (int i = 0; i < barq.alto; i++){ 
 					std::cout << "X";
 				}
-				cout<<endl;
+                std::cout << endl;
 			}
 			
 			std::cout << endl;
@@ -198,7 +217,7 @@ int main() {
 				for (int i = 0; i < barq.ancho; i++) {
 					std::cout << "X" ;
 				}
-				cout<<endl;
+				std::cout << endl;
 			}
 			
             std::cout << "\n: ";
@@ -226,7 +245,10 @@ int main() {
             std::cout << "Columna: ";
             std::cin >> barq.x; std::cout << "\n";
 			
-			while( jr.tab.se_puede_poner(barq)==false){
+			while( 
+                !es_ubicable_en_tablero(barq)
+                || !jr.tab.se_puede_poner(barq)
+            ) {
 				system("cls");
 				// Otra cosa del MENU (no tiene relevancia)
 				std::cout << "Coordenadas no validas. Ingrese unas nuevas\n\n";
