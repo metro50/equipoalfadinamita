@@ -245,12 +245,15 @@ int main() {
             std::cout << "Columna: ";
             std::cin >> barq.x; std::cout << "\n";
 			
+            // Evalua si las coordenadas del barco está dentro de 
+            // los limites del tablero; también evalua si no hay un 
+            // barco ya ubicado en esa posicion
 			while( 
                 !es_ubicable_en_tablero(barq)
                 || !jr.tab.se_puede_poner(barq)
             ) {
 				system("cls");
-				// Otra cosa del MENU (no tiene relevancia)
+                // Pide nuevas coordenadas, si no eran validas
 				std::cout << "Coordenadas no validas. Ingrese unas nuevas\n\n";
 				jr.tab.mostrar_tablero();
 				
@@ -276,6 +279,7 @@ int main() {
         }
     }
 
+    // Se determina quien es el ganador
     string ganador = "";
     while ( ganador == "" ) {
         std::cout << "Es el turno de" << jugadores[0].nombre << endl;
