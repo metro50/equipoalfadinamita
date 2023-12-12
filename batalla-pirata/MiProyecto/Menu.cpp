@@ -54,6 +54,7 @@ void Menu::dibujar(RenderWindow &ventanita) {
 	ventanita.draw(ctnFondo);
 	ventanita.draw(rectangulo);
 	ventanita.draw(texto);
+//	Pequenio cambio
 }
 
 
