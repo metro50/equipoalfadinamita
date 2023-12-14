@@ -11,6 +11,7 @@
 #include <SFML/Window/Keyboard.hpp>
 #include "EditarJugadores.h"
 #include <string>
+#include "Partida.h"
 using namespace std;
 using namespace sf;
 
@@ -25,6 +26,9 @@ EditarJugadores::EditarJugadores()
 }
 
 void EditarJugadores::actualizar(Juego &jueguito) {	
+	if (Keyboard::isKeyPressed(Keyboard::Key::Return)) {
+		jueguito.cambiarEscena(new Partida);
+	}
 	
 	if (Keyboard::isKeyPressed(Keyboard::Key::Up)) {
 		cout << "Se apreto la flechita arriba" << endl;
