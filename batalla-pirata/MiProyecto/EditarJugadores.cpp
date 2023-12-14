@@ -19,8 +19,8 @@ EditarJugadores::EditarJugadores()
 	for ( int i = 1; i <= 10; i++ ) {
 		string nombreArchivo = "pirata" + to_string(i) + ".png";
 		avatars.push_back({i,nombreArchivo});
-		cout << "Archivo: " << avatars[i-1].archivo << endl;
-		cout << "ID: " << avatars[i-1].id << endl;	
+//		cout << "Archivo: " << avatars[i-1].archivo << endl;
+//		cout << "ID: " << avatars[i-1].id << endl;	
 	}
 }
 
@@ -28,22 +28,26 @@ void EditarJugadores::actualizar(Juego &jueguito) {
 	
 	if (Keyboard::isKeyPressed(Keyboard::Key::Up)) {
 		cout << "Se apreto la flechita arriba" << endl;
-		avatarSeleccionado -= 5;
+		if (avatarSeleccionado > 5)
+			avatarSeleccionado -= 5;
 		cout << avatarSeleccionado << endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Key::Down)) {
 		cout << "Se apreto la flechita abajo" << endl;
-		avatarSeleccionado += 5;
+		if (avatarSeleccionado < 6)
+			avatarSeleccionado += 5;
 		cout << avatarSeleccionado << endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Key::Left)) {
 		cout << "Se apreto la flechita izquierda" << endl;
-		avatarSeleccionado--;
+		if (avatarSeleccionado > 1)
+			avatarSeleccionado--;
 		cout << avatarSeleccionado << endl;
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Key::Right)) {
 		cout << "Se apreto la flechita derecha" << endl;
-		avatarSeleccionado++;
+		if (avatarSeleccionado < 10)
+			avatarSeleccionado++;
 		cout << avatarSeleccionado << endl;
 	}
 
