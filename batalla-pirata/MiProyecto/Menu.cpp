@@ -16,8 +16,8 @@ using namespace sf;
 Menu::Menu() {
 }
 void Menu::actualizar(Juego &jueguito) {
-	if (Keyboard::isKeyPressed(Keyboard::Key::Space)) {
-		cout << "Se apreto el Espacio" << endl;
+	if (Keyboard::isKeyPressed(Keyboard::Key::Return)) {
+//		cout << "Se apreto el Enter" << endl;
 		jueguito.cambiarEscena(new EditarJugadores);
 	}
 }
@@ -45,16 +45,25 @@ void Menu::dibujar(RenderWindow &ventanita) {
 	
 	Text texto;
 	texto.setFont(fuente);
-	texto.setCharacterSize(60);
-	texto.setPosition(305,258);
-	texto.setString("JUGAR");
-	texto.setColor(Color(102, 44, 6));
+	texto.setCharacterSize(45);
+	texto.setPosition(330,267);
+	texto.setString("Jugar");
+	texto.setFillColor(Color(102, 44, 6));
+	
+	Text instruccion;
+	instruccion.setFont(fuente);
+	instruccion.setCharacterSize(25);
+	instruccion.setPosition(220,526);
+	instruccion.setString("( Presione ENTER para Jugar )");
+	instruccion.setFillColor(Color(255,255,255));
+	
 	
 	ventanita.clear();
 	ventanita.draw(ctnFondo);
 	ventanita.draw(rectangulo);
 	ventanita.draw(texto);
-//	Pequenio cambio
+	ventanita.draw(instruccion);
+	
 }
 
 
