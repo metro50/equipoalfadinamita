@@ -15,7 +15,7 @@ tab_width=4
 tab_use_spaces=0
 explorer_path=.
 inherits_from=
-current_source=Juego.h
+current_source=GanadoryMenu.cpp
 path_char=\
 [source]
 path=main.cpp
@@ -39,7 +39,7 @@ cursor=0:0
 open=true
 [source]
 path=GanadoryMenu.cpp
-cursor=19:38
+cursor=20:0
 open=true
 [source]
 path=Partida.cpp
@@ -51,7 +51,7 @@ cursor=11:8
 open=true
 [header]
 path=Escena.h
-cursor=9:12
+cursor=10:1
 open=true
 [header]
 path=Menu.h

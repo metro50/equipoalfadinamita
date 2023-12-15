@@ -18,7 +18,7 @@ GanadoryMenu::GanadoryMenu() {
 }
 
 void GanadoryMenu::actualizar (Juego &jueguito ) {
-	
+
 	if (Keyboard::isKeyPressed(Keyboard::Key::Up)) {
 		jueguito.cambiarEscena(new Partida);
 	}
@@ -48,24 +48,24 @@ void GanadoryMenu::dibujar (RenderWindow &ventanita) {
 	Text fin;
 	fin.setFont(fuente);
 	fin.setCharacterSize(45);
-	fin.setPosition(205,100);
+	fin.setPosition(245,150);
 	fin.setString("El ganador es:");
 	fin.setFillColor(Color(102, 44, 6));
 	
 	RectangleShape rectg(Vector2f(500.00,400.00));
 	rectg.setFillColor(Color(255,193,88));
-	rectg.setPosition(120,50);
+	rectg.setPosition(150,100);
 	
 	
 //revancha	
 	RectangleShape rev(Vector2f(400.00,70.00));
 	rev.setFillColor(Color(255, 207, 127));
-	rev.setPosition(200,270);
+	rev.setPosition(200,255);
 	
 	Text r;
 	r.setFont(fuente);
 	r.setCharacterSize(30);
-	r.setPosition(205,270);
+	r.setPosition(330,270);
 	r.setString("revancha");
 	r.setFillColor(Color(102, 44, 6));
 	
@@ -73,12 +73,12 @@ void GanadoryMenu::dibujar (RenderWindow &ventanita) {
 // volver al menu
 	RectangleShape volver(Vector2f(400.00,70.00));
 	volver.setFillColor(Color(255, 207, 127));
-	volver.setPosition(250,350);
+	volver.setPosition(200,360);
 	
 	Text v;
 	v.setFont(fuente);
 	v.setCharacterSize(30);
-	v.setPosition(205,270);
+	v.setPosition(300,375);
 	v.setString("volver al menu");
 	v.setFillColor(Color(102, 44, 6));
 	
