@@ -30,7 +30,7 @@
 git clone https://github.com/metro50/equipoalfadinamita.git
 ```
 
-<p>O también podés descargarlo por acá: <a href="https://github.com/metro50/equipoalfadinamita/tree/main/BatallaPirata" download>Descargar Proyecto</a> y ejecutarlo vos mismo.</p>
+<p>O también podés descargarlo por acá: <a href="https://firebasestorage.googleapis.com/v0/b/iamzhitox-portfolio.appspot.com/o/archivos%2FBatallaPirata.zip?alt=media&token=fc3cde18-3549-451c-b89a-1ae0111987e0" download>Descargar Proyecto</a> y ejecutarlo vos mismo.</p>
 
 
 
