@@ -1,1 +1,0 @@
-or barco.y < 0 
