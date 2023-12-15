@@ -1,6 +1,5 @@
 #ifndef ESCENA_H
 #define ESCENA_H
-#include "Juego.h"
 #include "Escena.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 using namespace sf;
