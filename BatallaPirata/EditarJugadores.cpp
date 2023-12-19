@@ -21,6 +21,7 @@ EditarJugadores::EditarJugadores():
 	rectanguloSiguiente(Vector2f(225,75)), rectanguloEntrada(Vector2f(400.00,60.00)),
 	rectanguloAvatars(Vector2f(400.00,160.00)), avatars(10)
 {
+	
 	//	Imprimir Piratas
 	for ( int i = 1; i <= 10; i++ ) {
 		Texture pirata;
@@ -51,6 +52,7 @@ EditarJugadores::EditarJugadores():
 		avatars[i+5].avatar = avatar2;
 	}
 	
+	
 	//	Fondo
 	if (!fondoImg.loadFromFile("fondo.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
@@ -60,46 +62,55 @@ EditarJugadores::EditarJugadores():
 	fondo.setPosition(0,-100);
 	fondo.setScale(0.8,0.7);
 	
+	
+	//	Fuente
+	if (!fuente.loadFromFile("PixelifySans-VariableFont_wght.ttf"))
+		cout << "No se pudo cargar la fuente" << endl;
+	
+	
 	//	Rectangulo Contenedor Grande
 	rectanguloGrande.setFillColor(Color(255,193,88));
 	rectanguloGrande.setPosition(120,50);
 	
-	//	Rectangulo Siguiente
+	
+	//	Boton Siguiente
 	rectanguloSiguiente.setFillColor(Color(255,193,88));
 	rectanguloSiguiente.setPosition(560,510);
 	
-	//	Rectangulo Input
-	rectanguloEntrada.setFillColor(Color(255, 207, 127));
-	rectanguloEntrada.setPosition(200,145);
-	
-	//	Rectangulo Avatars
-	rectanguloAvatars.setFillColor(Color(255, 207, 127));
-	rectanguloAvatars.setPosition(200,270);
-	
-	if (!fuente.loadFromFile("PixelifySans-VariableFont_wght.ttf"))
-		cout << "No se pudo cargar la fuente" << endl;
-	
-	//	Texto Nombre del Jugador
-	nombreTxt.setFont(fuente);
-	nombreTxt.setCharacterSize(30);
-	nombreTxt.setPosition(205,100);
-	nombreTxt.setString("Nombre Jugador");
-	nombreTxt.setFillColor(Color(102, 44, 6));
-	
-	//	Texto Elegir Avatar
-	avatarTxt.setFont(fuente);
-	avatarTxt.setCharacterSize(30);
-	avatarTxt.setPosition(205,225);
-	avatarTxt.setString("Avatar");
-	avatarTxt.setFillColor(Color(102, 44, 6));
-	
-	//	Texto Boton Siguiente
 	siguienteTxt.setFont(fuente);
 	siguienteTxt.setCharacterSize(30);
 	siguienteTxt.setPosition(602,527);
 	siguienteTxt.setString("Siguiente");
 	siguienteTxt.setFillColor(Color(102, 44, 6));
 	
+	
+	//	Seccion Avatars
+	rectanguloAvatars.setFillColor(Color(255, 207, 127));
+	rectanguloAvatars.setPosition(200,270);
+	
+	avatarTxt.setFont(fuente);
+	avatarTxt.setCharacterSize(30);
+	avatarTxt.setPosition(205,225);
+	avatarTxt.setString("Avatar");
+	avatarTxt.setFillColor(Color(102, 44, 6));
+	
+	
+	// Entrada Nombre
+	rectanguloEntrada.setFillColor(Color(255, 207, 127));
+	rectanguloEntrada.setPosition(200,145);
+	
+	nombreTxt.setFont(fuente);
+	nombreTxt.setCharacterSize(30);
+	nombreTxt.setPosition(205,100);
+	nombreTxt.setString("Nombre Jugador");
+	nombreTxt.setFillColor(Color(102, 44, 6));
+
+	
+	nombreJugador.setFont(fuente);
+	nombreJugador.setCharacterSize(25);
+	nombreJugador.setPosition(215,160);
+	nombreJugador.setString("");
+	nombreJugador.setFillColor(Color(150, 69, 15));
 }
 
 void EditarJugadores::procesarEvento(Event &evento) {
@@ -135,6 +146,20 @@ void EditarJugadores::procesarEvento(Event &evento) {
 		cout << "Se apreto la flechita derecha" << endl;
 		if (avatarSeleccionado < 10)
 			avatarSeleccionado++;
+	}
+	
+	if (evento.type == Event::KeyPressed && evento.key.code == Keyboard::BackSpace) {
+		string nuevoNombre = nombreJugador.getString();
+		int tamanioNombre = nuevoNombre.size();
+		nuevoNombre = nuevoNombre.substr(0,tamanioNombre-1);
+		nombreJugador.setString(nuevoNombre);
+	} 
+	
+	if (evento.type == Event::TextEntered) {
+		if (evento.text.unicode >= 32 && evento.text.unicode <= 126) {
+			string nuevoNombre = nombreJugador.getString() + String(evento.text.unicode).toAnsiString();
+			nombreJugador.setString(nuevoNombre);
+		}
 	}
 }
 
@@ -183,6 +208,7 @@ void EditarJugadores::dibujar(RenderWindow &ventanita) {
 	ventanita.draw(rectanguloSiguiente);
 	ventanita.draw(rectanguloEntrada);
 	ventanita.draw(nombreTxt);
+	ventanita.draw(nombreJugador);
 	ventanita.draw(avatarTxt);
 	ventanita.draw(siguienteTxt);
 	ventanita.draw(rectanguloAvatars);

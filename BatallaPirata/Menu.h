@@ -20,6 +20,10 @@ class Menu: public Escena {
 		Font fuente;
 		Text instruccion;
 		Text texto;
+		RectangleShape cuadroVolumen;
+		Texture volumenImg;
+		RectangleShape volumen;
+		bool musica;
 	public:
 		Menu();
 		void actualizar(Juego &) override;

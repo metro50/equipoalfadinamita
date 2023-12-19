@@ -21,6 +21,8 @@ class Juego {
 		~Juego();
 		RenderWindow& obtenerVentana();
 		void cambiarEscena(Escena *nueva_escena);
+		void mutearMusica();
+		void desmutearMusica();
 };
 
 #endif

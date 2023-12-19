@@ -14,7 +14,10 @@
 using namespace std;
 using namespace sf;
 
-Menu::Menu(): rectangulo(Vector2f(300.00,100.00)) {
+Menu::Menu(): 
+	rectangulo(Vector2f(300.00,100.00)), cuadroVolumen(Vector2f(50.00,50.00)),
+	volumen(Vector2f(30.00,30.00)), musica(true)
+{
 	
 	if (!fondoImg.loadFromFile("fondo.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
@@ -46,6 +49,17 @@ Menu::Menu(): rectangulo(Vector2f(300.00,100.00)) {
 	instruccion.setString("( Presione ENTER para Jugar )");
 	instruccion.setFillColor(Color(255,255,255));
 	
+	//	Volumen
+	cuadroVolumen.setFillColor(Color(255,193,88));
+	cuadroVolumen.setPosition(730,530);
+	
+	
+	if (!volumenImg.loadFromFile("volumenon.png")) {
+		cout << "No se pudo cargar la imagen" << endl;
+	}
+	volumen.setTexture(&volumenImg);
+	volumen.setPosition(740,540);
+	
 }
 void Menu::procesarEvento(Event &evento) {
 	if (evento.type == Event::KeyPressed && evento.key.code == Keyboard::Return) {
@@ -71,6 +85,26 @@ void Menu::actualizar(Juego &juego) {
 		juego.cambiarEscena(new EditarJugadores);
 	}
 	
+	if (
+		tipoEvento == "click"
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 730 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 730+50
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 530 
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 530+50
+	) {
+		if (musica) {
+			if (!volumenImg.loadFromFile("volumenoff.png")) 
+				cout << "No se pudo cargar la imagen" << endl;
+			juego.mutearMusica();
+			musica = !musica;
+		} else {
+			if (!volumenImg.loadFromFile("volumenon.png")) 
+				cout << "No se pudo cargar la imagen" << endl;
+			juego.desmutearMusica();
+			musica = !musica;
+		}
+	}
+	
 	tipoEvento = "";
 }
 void Menu::dibujar(RenderWindow &ventanita) {	
@@ -79,6 +113,8 @@ void Menu::dibujar(RenderWindow &ventanita) {
 	ventanita.draw(rectangulo);
 	ventanita.draw(texto);
 	ventanita.draw(instruccion);
+	ventanita.draw(cuadroVolumen);
+	ventanita.draw(volumen);
 }
 
 

@@ -31,6 +31,7 @@ private:
 	Text siguienteTxt;
 	RectangleShape rectanguloEntrada;
 	Text nombreTxt;
+	Text nombreJugador;
 	RectangleShape rectanguloAvatars;
 	Text avatarTxt;
 public:

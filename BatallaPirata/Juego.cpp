@@ -25,6 +25,14 @@ RenderWindow& Juego::obtenerVentana() {
 	return ventana;
 }
 
+void Juego::mutearMusica() {
+	musica.setVolume(0);
+}
+
+void Juego::desmutearMusica() {
+	musica.setVolume(20);
+}
+
 void Juego::jugar() {
 	while (ventana.isOpen()) {
 		
