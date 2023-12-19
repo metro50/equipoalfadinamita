@@ -7,6 +7,12 @@
 Juego::Juego( Escena *esc ): ventana(VideoMode(800,600), "Batalla Pirata") {
 	ventana.setFramerateLimit(30);
 	escena_actual = esc;
+	
+	if (!icono.loadFromFile("pirata8.png"))
+		cout << "No se pudo cargar el icono" << endl;
+	
+	ventana.setIcon(icono.getSize().x,icono.getSize().y,icono.getPixelsPtr());
+	
 	if (!musica.openFromFile("cancion.ogg")) 
 		cout << "No se pudo cargar el tema" << endl;
 
@@ -26,6 +32,8 @@ void Juego::jugar() {
 		while (ventana.pollEvent(evento)) {
 			if (evento.type == Event::Closed) {
 				ventana.close();
+			} else {
+				escena_actual->procesarEvento(evento);
 			}
 		}
 		

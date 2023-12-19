@@ -4,6 +4,7 @@
 #include "Escena.h"
 #include <SFML/Audio/Music.hpp>
 #include <iostream>
+#include <SFML/Graphics/Image.hpp>
 using namespace sf;
 using namespace std;
 
@@ -11,6 +12,7 @@ class Juego {
 	private:
 		RenderWindow ventana;
 		Music musica;
+		Image icono;
 		Escena *escena_actual;
 		Escena *escena_siguiente = nullptr;
 	public:
