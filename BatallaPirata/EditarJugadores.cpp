@@ -149,6 +149,18 @@ void EditarJugadores::actualizar(Juego &juego) {
 		juego.cambiarEscena(new Partida);
 	}
 		
+	for (personaje avr: avatars) {
+		if (
+			tipoEvento == "click"
+			&& Mouse::getPosition(juego.obtenerVentana()).x >= avr.avatar.getPosition().x
+			&& Mouse::getPosition(juego.obtenerVentana()).x <= avr.avatar.getPosition().x + 80
+			&& Mouse::getPosition(juego.obtenerVentana()).y >= avr.avatar.getPosition().y
+			&& Mouse::getPosition(juego.obtenerVentana()).y <= avr.avatar.getPosition().y + 80
+		) {
+			avatarSeleccionado = avr.id;
+		}
+	}
+		
 	if (tipoEvento == "siguiente") {
 		juego.cambiarEscena(new Partida);
 	} else if (tipoEvento == "volver") {
