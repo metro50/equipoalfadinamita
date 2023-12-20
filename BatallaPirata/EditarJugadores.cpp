@@ -111,6 +111,9 @@ EditarJugadores::EditarJugadores():
 	nombreJugador.setPosition(215,160);
 	nombreJugador.setString("");
 	nombreJugador.setFillColor(Color(150, 69, 15));
+	
+	nombreJugador.setString("Escribi tu nombre");
+	tipoEvento = "obtener jugadores";
 }
 
 void EditarJugadores::procesarEvento(Event &evento) {
@@ -157,6 +160,8 @@ void EditarJugadores::procesarEvento(Event &evento) {
 	
 	if (evento.type == Event::TextEntered) {
 		if (evento.text.unicode >= 32 && evento.text.unicode <= 126) {
+			if (nombreJugador.getString() == "Escribi tu nombre")
+				nombreJugador.setString("");
 			string nuevoNombre = nombreJugador.getString() + String(evento.text.unicode).toAnsiString();
 			nombreJugador.setString(nuevoNombre);
 		}
@@ -206,6 +211,12 @@ void EditarJugadores::actualizar(Juego &juego) {
 		else 
 			avr.avatar.setOutlineThickness(0.f);
 	}	
+	
+	if (tipoEvento == "obtener jugadores") {
+		string nuevoTextNombre = nombreTxt.getString() + " " + to_string(juego.cantidadJugadores()+1);
+		nombreTxt.setString(nuevoTextNombre);
+	}	
+	
 	
 	tipoEvento = "";
 }
