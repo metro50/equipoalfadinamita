@@ -62,6 +62,17 @@ Juego::~Juego() {
 void Juego::cambiarEscena(Escena *nueva_escena) {
 	escena_siguiente = nueva_escena;
 }
+void Juego::agregarJugador(jugador nuevoJugador) {
+	jugadores.push_back(nuevoJugador);
+}
+int Juego::cantidadJugadores() {
+	return (int)jugadores.size();
+}
+vector<jugador> Juego::obtenerJugadores() {
+	return jugadores;
+}
+
+
 
 
 

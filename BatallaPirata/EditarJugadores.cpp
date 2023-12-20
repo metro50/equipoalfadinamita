@@ -171,9 +171,13 @@ void EditarJugadores::actualizar(Juego &juego) {
 		&& Mouse::getPosition(juego.obtenerVentana()).y >= 510 
 		&& Mouse::getPosition(juego.obtenerVentana()).y <= 510+75
 	) {
-		juego.cambiarEscena(new Partida);
+		juego.agregarJugador({nombreJugador.getString(),avatars[avatarSeleccionado-1]});
+		if (juego.cantidadJugadores() == 2)
+			juego.cambiarEscena(new Partida);
+		else 
+			juego.cambiarEscena(new EditarJugadores);
 	}
-		
+	
 	for (personaje avr: avatars) {
 		if (
 			tipoEvento == "click"
@@ -187,7 +191,11 @@ void EditarJugadores::actualizar(Juego &juego) {
 	}
 		
 	if (tipoEvento == "siguiente") {
-		juego.cambiarEscena(new Partida);
+		juego.agregarJugador({nombreJugador.getString(),avatars[avatarSeleccionado-1]});
+		if (juego.cantidadJugadores() == 2)
+			juego.cambiarEscena(new Partida);
+		else 
+			juego.cambiarEscena(new EditarJugadores);
 	} else if (tipoEvento == "volver") {
 		juego.cambiarEscena(new Menu);
 	}

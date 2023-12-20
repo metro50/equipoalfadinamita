@@ -18,6 +18,8 @@ Partida::Partida() {
 	fondo.setTexture(fondoImg);
 	fondo.setPosition(0,-100);
 	fondo.setScale(0.8,0.7);
+
+	tipoEvento = "obtener jugadores";
 }
 
 void Partida::procesarEvento(Event &evento) {
@@ -33,6 +35,7 @@ void Partida::procesarEvento(Event &evento) {
 		cout << "Hiciste Click" << endl;
 		tipoEvento = "siguiente";
 	}
+	
 }
 
 void Partida::actualizar (Juego & juego) {
@@ -42,6 +45,22 @@ void Partida::actualizar (Juego & juego) {
 	if (tipoEvento == "volver") {
 		juego.cambiarEscena(new EditarJugadores);
 	}
+	if (tipoEvento == "obtener jugadores") {
+		cout << juego.obtenerJugadores()[0].nombre << endl;
+		cout << juego.obtenerJugadores()[1].nombre << endl;
+		jugadores = juego.obtenerJugadores();
+		
+		jugadores[0].avatar.avatar.setPosition(790,365);
+		jugadores[0].avatar.avatar.setOutlineThickness(0.f);
+		jugadores[0].avatar.avatar.setScale(-3,3);
+		
+		jugadores[1].avatar.avatar.setPosition(0,480);
+		jugadores[1].avatar.avatar.setOutlineThickness(0.f);
+		jugadores[1].avatar.avatar.setScale(1.5,1.5);
+		
+		
+		tipoEvento == "";
+	}
 
 	tipoEvento = "";
 }
@@ -49,5 +68,7 @@ void Partida::actualizar (Juego & juego) {
 void Partida::dibujar (RenderWindow & ventanita) {
 	ventanita.clear();
 	ventanita.draw(fondo);
+	ventanita.draw(jugadores[0].avatar.avatar);
+	ventanita.draw(jugadores[1].avatar.avatar);
 }
 

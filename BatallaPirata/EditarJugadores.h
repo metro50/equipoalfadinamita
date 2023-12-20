@@ -11,11 +11,11 @@
 using namespace std;
 using namespace sf;
 
-struct personaje {
-	int id;
-	string archivo;
-	RectangleShape avatar;
-};
+//struct personaje {
+//	int id;
+//	string archivo;
+//	RectangleShape avatar;
+//};
 
 class EditarJugadores: public Escena {
 private:

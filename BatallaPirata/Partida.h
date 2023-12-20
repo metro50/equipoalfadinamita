@@ -17,6 +17,7 @@ class Partida : public Escena {
 		void actualizar (Juego & )override;
 		void dibujar (RenderWindow & )override;
 		void procesarEvento(Event &) override;
+		vector<jugador> jugadores;
 };
 
 #endif
