@@ -134,15 +134,6 @@ cursor=0:0
 [other]
 path=cancion.ogg
 cursor=0:0
-[other]
-path=fondo1.jpg
-cursor=0:0
-[other]
-path=volumen-on.png
-cursor=0:0
-[other]
-path=volumen-off.png
-cursor=0:0
 [config]
 name=Debug_Win32
 toolchain=

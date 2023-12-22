@@ -19,7 +19,7 @@ Menu::Menu():
 	volumen(Vector2f(30.00,30.00)), musica(true)
 {
 	
-	if (!fondoImg.loadFromFile("fondo.jpg")) {
+	if (!fondoImg.loadFromFile("fondo1.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
 	}
 	
@@ -29,7 +29,7 @@ Menu::Menu():
 	fondo.setScale(0.8,0.7);
 	
 	//	Rectangulo
-	rectangulo.setFillColor(Color(255,193,88));
+	rectangulo.setFillColor(Color(185,234,255));
 	rectangulo.setPosition(250,250);
 	
 	//	Texto Boton
@@ -40,21 +40,21 @@ Menu::Menu():
 	texto.setCharacterSize(45);
 	texto.setPosition(330,267);
 	texto.setString("Jugar");
-	texto.setFillColor(Color(102, 44, 6));
+	texto.setFillColor(Color(51, 104, 116));
 	
 	//	Instrucciones
 	instruccion.setFont(fuente);
 	instruccion.setCharacterSize(25);
 	instruccion.setPosition(220,526);
 	instruccion.setString("( Presione ENTER para Jugar )");
-	instruccion.setFillColor(Color(255,255,255));
+	instruccion.setFillColor(Color(0,0,0));
 	
 	//	Volumen
-	cuadroVolumen.setFillColor(Color(255,193,88));
+	cuadroVolumen.setFillColor(Color( 185, 234, 255));
 	cuadroVolumen.setPosition(730,530);
 	
 	
-	if (!volumenImg.loadFromFile("volumenon.png")) {
+	if (!volumenImg.loadFromFile("volumen-on.png")) {
 		cout << "No se pudo cargar la imagen" << endl;
 	}
 	volumen.setTexture(&volumenImg);
@@ -93,12 +93,12 @@ void Menu::actualizar(Juego &juego) {
 		&& Mouse::getPosition(juego.obtenerVentana()).y <= 530+50
 	) {
 		if (musica) {
-			if (!volumenImg.loadFromFile("volumenoff.png")) 
+			if (!volumenImg.loadFromFile("volumen-off.png")) 
 				cout << "No se pudo cargar la imagen" << endl;
 			juego.mutearMusica();
 			musica = !musica;
 		} else {
-			if (!volumenImg.loadFromFile("volumenon.png")) 
+			if (!volumenImg.loadFromFile("volumen-on.png")) 
 				cout << "No se pudo cargar la imagen" << endl;
 			juego.desmutearMusica();
 			musica = !musica;

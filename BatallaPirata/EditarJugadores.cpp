@@ -40,7 +40,7 @@ EditarJugadores::EditarJugadores():
 		avatar1.setPosition(200 + (80 * i),270);
 		if (avatars[i].id == avatarSeleccionado) 
 			avatar1.setOutlineThickness(3.f);
-		avatar1.setOutlineColor(sf::Color(102, 44, 6));
+		avatar1.setOutlineColor(sf::Color( 113, 204, 242));
 		avatars[i].avatar = avatar1;
 		
 		RectangleShape avatar2(Vector2f(80.00,80.00));
@@ -48,13 +48,13 @@ EditarJugadores::EditarJugadores():
 		avatar2.setPosition(200 + (80 * i),350);
 		if (avatars[i+5].id == avatarSeleccionado) 
 			avatar2.setOutlineThickness(3.f);
-		avatar2.setOutlineColor(sf::Color(102, 44, 6));
+		avatar2.setOutlineColor(sf::Color( 113, 204, 242));
 		avatars[i+5].avatar = avatar2;
 	}
 	
 	
 	//	Fondo
-	if (!fondoImg.loadFromFile("fondo.jpg")) {
+	if (!fondoImg.loadFromFile("fondo1.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
 	}
 
@@ -69,48 +69,48 @@ EditarJugadores::EditarJugadores():
 	
 	
 	//	Rectangulo Contenedor Grande
-	rectanguloGrande.setFillColor(Color(255,193,88));
+	rectanguloGrande.setFillColor(Color(113, 204, 242));
 	rectanguloGrande.setPosition(120,50);
 	
 	
 	//	Boton Siguiente
-	rectanguloSiguiente.setFillColor(Color(255,193,88));
+	rectanguloSiguiente.setFillColor(Color(185, 234, 255));
 	rectanguloSiguiente.setPosition(560,510);
 	
 	siguienteTxt.setFont(fuente);
 	siguienteTxt.setCharacterSize(30);
 	siguienteTxt.setPosition(602,527);
 	siguienteTxt.setString("Siguiente");
-	siguienteTxt.setFillColor(Color(102, 44, 6));
+	siguienteTxt.setFillColor(Color(51, 104, 116));
 	
 	
 	//	Seccion Avatars
-	rectanguloAvatars.setFillColor(Color(255, 207, 127));
+	rectanguloAvatars.setFillColor(Color(51, 104, 116));
 	rectanguloAvatars.setPosition(200,270);
 	
 	avatarTxt.setFont(fuente);
 	avatarTxt.setCharacterSize(30);
 	avatarTxt.setPosition(205,225);
 	avatarTxt.setString("Avatar");
-	avatarTxt.setFillColor(Color(102, 44, 6));
+	avatarTxt.setFillColor(Color(51, 104, 116));
 	
 	
 	// Entrada Nombre
-	rectanguloEntrada.setFillColor(Color(255, 207, 127));
+	rectanguloEntrada.setFillColor(Color(51, 104, 116));
 	rectanguloEntrada.setPosition(200,145);
 	
 	nombreTxt.setFont(fuente);
 	nombreTxt.setCharacterSize(30);
 	nombreTxt.setPosition(205,100);
 	nombreTxt.setString("Nombre Jugador");
-	nombreTxt.setFillColor(Color(102, 44, 6));
+	nombreTxt.setFillColor(Color(51, 104, 116));
 
 	
 	nombreJugador.setFont(fuente);
 	nombreJugador.setCharacterSize(25);
 	nombreJugador.setPosition(215,160);
 	nombreJugador.setString("");
-	nombreJugador.setFillColor(Color(150, 69, 15));
+	nombreJugador.setFillColor(Color(113, 204, 242));
 	
 	nombreJugador.setString("Escribi tu nombre");
 	tipoEvento = "obtener jugadores";

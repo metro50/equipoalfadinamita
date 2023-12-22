@@ -11,7 +11,7 @@
 using namespace std;
 
 Partida::Partida() {
-	if (!fondoImg.loadFromFile("fondo.jpg")) {
+	if (!fondoImg.loadFromFile("fondo1.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
 	}
 	

@@ -22,7 +22,7 @@ GanadoryMenu::GanadoryMenu():
 
 {
 	// Fondo
-	if (!fondoImg.loadFromFile("fondo.jpg")) {
+	if (!fondoImg.loadFromFile("fondo1.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
 	}
 	
@@ -38,31 +38,31 @@ GanadoryMenu::GanadoryMenu():
 	ganadorTxt.setCharacterSize(45);
 	ganadorTxt.setPosition(245,150);
 	ganadorTxt.setString("El ganador es:");
-	ganadorTxt.setFillColor(Color(102, 44, 6));
+	ganadorTxt.setFillColor(Color(51, 104, 116));
 	
-	rectanguloGrande.setFillColor(Color(255,193,88));
+	rectanguloGrande.setFillColor(Color(113, 204, 242));
 	rectanguloGrande.setPosition(150,100);
 	
 	// Boton Revancha
-	rectanguloRevancha.setFillColor(Color(255, 207, 127));
+	rectanguloRevancha.setFillColor(Color(185, 234, 255));
 	rectanguloRevancha.setPosition(200,275);
 	
 	revanchaTxt.setFont(fuente);
 	revanchaTxt.setCharacterSize(30);
 	revanchaTxt.setPosition(330,290);
 	revanchaTxt.setString("revancha");
-	revanchaTxt.setFillColor(Color(102, 44, 6));
+	revanchaTxt.setFillColor(Color(51, 104, 116));
 	
 	
 	// Boton Volver al Menu
-	rectanguloVolver.setFillColor(Color(255, 207, 127));
+	rectanguloVolver.setFillColor(Color(185, 234, 255));
 	rectanguloVolver.setPosition(200,360);
 	
 	volverTxt.setFont(fuente);
 	volverTxt.setCharacterSize(30);
 	volverTxt.setPosition(300,375);
 	volverTxt.setString("volver al menu");
-	volverTxt.setFillColor(Color(102, 44, 6));
+	volverTxt.setFillColor(Color(51, 104, 116));
 	
 }
 
