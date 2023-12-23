@@ -23,6 +23,7 @@ class Menu: public Escena {
 		RectangleShape cuadroVolumen;
 		Texture volumenImg;
 		RectangleShape volumen;
+		RectangleShape opacidad;
 		bool musica;
 	public:
 		Menu();

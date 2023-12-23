@@ -18,7 +18,7 @@ using namespace std;
 
 GanadoryMenu::GanadoryMenu(): 
 	rectanguloGrande(Vector2f(500.00,400.00)), rectanguloRevancha(Vector2f(400.00,70.00)),
-	rectanguloVolver(Vector2f(400.00,70.00))
+	rectanguloVolver(Vector2f(400.00,70.00)), opacidad(Vector2f(800.00,600.00))
 
 {
 	// Fondo
@@ -30,6 +30,11 @@ GanadoryMenu::GanadoryMenu():
 	fondo.setPosition(0,-100);
 	fondo.setScale(0.8,0.7);
 	
+	//	Opacidad del fondo
+	opacidad.setPosition(0,0);
+	opacidad.setFillColor(Color(0,0,0,200));
+	
+	
 	// Ganador
 	if (!fuente.loadFromFile("PixelifySans-VariableFont_wght.ttf"))
 		cout << "No se pudo cargar la fuente" << endl;
@@ -38,9 +43,11 @@ GanadoryMenu::GanadoryMenu():
 	ganadorTxt.setCharacterSize(45);
 	ganadorTxt.setPosition(245,150);
 	ganadorTxt.setString("El ganador es:");
-	ganadorTxt.setFillColor(Color(51, 104, 116));
+	ganadorTxt.setFillColor(Color(113, 204, 242));
+	ganadorTxt.setOutlineColor(Color(0,0,0,20));
+	ganadorTxt.setOutlineThickness(4);
 	
-	rectanguloGrande.setFillColor(Color(113, 204, 242));
+	rectanguloGrande.setFillColor(Color(113, 204, 242,0));
 	rectanguloGrande.setPosition(150,100);
 	
 	// Boton Revancha
@@ -114,6 +121,7 @@ void GanadoryMenu::actualizar (Juego &juego ) {
 void GanadoryMenu::dibujar (RenderWindow &ventanita) {	
 	ventanita.clear();
 	ventanita.draw(fondo);
+	ventanita.draw(opacidad);
 	ventanita.draw(rectanguloGrande);
 	ventanita.draw(ganadorTxt);
 	ventanita.draw(rectanguloRevancha);

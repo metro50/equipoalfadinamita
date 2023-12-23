@@ -16,7 +16,7 @@ using namespace sf;
 
 Menu::Menu(): 
 	rectangulo(Vector2f(300.00,100.00)), cuadroVolumen(Vector2f(50.00,50.00)),
-	volumen(Vector2f(30.00,30.00)), musica(true)
+	volumen(Vector2f(30.00,30.00)), musica(true), opacidad(Vector2f(800.00,600.00))
 {
 	
 	if (!fondoImg.loadFromFile("fondo1.jpg")) {
@@ -27,6 +27,11 @@ Menu::Menu():
 	fondo.setTexture(fondoImg);
 	fondo.setPosition(0,-100);
 	fondo.setScale(0.8,0.7);
+	
+	//	Opacidad del fondo
+	opacidad.setPosition(0,0);
+	opacidad.setFillColor(Color(0,0,0,50));
+	
 	
 	//	Rectangulo
 	rectangulo.setFillColor(Color(185,234,255));
@@ -47,7 +52,9 @@ Menu::Menu():
 	instruccion.setCharacterSize(25);
 	instruccion.setPosition(220,526);
 	instruccion.setString("( Presione ENTER para Jugar )");
-	instruccion.setFillColor(Color(0,0,0));
+	instruccion.setFillColor(Color(255,255,255));
+	instruccion.setOutlineColor(Color(0,0,0,128));
+	instruccion.setOutlineThickness(4);
 	
 	//	Volumen
 	cuadroVolumen.setFillColor(Color( 185, 234, 255));
@@ -110,6 +117,7 @@ void Menu::actualizar(Juego &juego) {
 void Menu::dibujar(RenderWindow &ventanita) {	
 	ventanita.clear();
 	ventanita.draw(fondo);
+	ventanita.draw(opacidad);
 	ventanita.draw(rectangulo);
 	ventanita.draw(texto);
 	ventanita.draw(instruccion);

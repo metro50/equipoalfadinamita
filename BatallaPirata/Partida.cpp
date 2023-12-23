@@ -10,7 +10,7 @@
 #include <SFML/Window/Event.hpp>
 using namespace std;
 
-Partida::Partida() {
+Partida::Partida(): opacidad(Vector2f(800.00,600.00)) {
 	if (!fondoImg.loadFromFile("fondo1.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
 	}
@@ -18,6 +18,10 @@ Partida::Partida() {
 	fondo.setTexture(fondoImg);
 	fondo.setPosition(0,-100);
 	fondo.setScale(0.8,0.7);
+	
+	//	Opacidad del fondo
+	opacidad.setPosition(0,0);
+	opacidad.setFillColor(Color(51, 104, 116,50));
 
 	tipoEvento = "obtener jugadores";
 }
@@ -29,7 +33,7 @@ void Partida::procesarEvento(Event &evento) {
 	}
 	if (evento.type == Event::KeyPressed && evento.key.code == Keyboard::Escape) {
 		cout << "Tocaste ESCAPE" << endl;	
-		tipoEvento = "volver";
+//		tipoEvento = "volver";
 	}
 	if (evento.type == Event::MouseButtonPressed && evento.mouseButton.button == Mouse::Left) {
 		cout << "Hiciste Click" << endl;
@@ -68,6 +72,7 @@ void Partida::actualizar (Juego & juego) {
 void Partida::dibujar (RenderWindow & ventanita) {
 	ventanita.clear();
 	ventanita.draw(fondo);
+	ventanita.draw(opacidad);
 	ventanita.draw(jugadores[0].avatar.avatar);
 	ventanita.draw(jugadores[1].avatar.avatar);
 }

@@ -19,7 +19,7 @@ using namespace sf;
 EditarJugadores::EditarJugadores(): 
 	avatarSeleccionado(1), rectanguloGrande(Vector2f(560.00,440.00)), 
 	rectanguloSiguiente(Vector2f(225,75)), rectanguloEntrada(Vector2f(400.00,60.00)),
-	rectanguloAvatars(Vector2f(400.00,160.00)), avatars(10)
+	rectanguloAvatars(Vector2f(400.00,160.00)), avatars(10), opacidad(Vector2f(800.00,600.00))
 {
 	
 	//	Imprimir Piratas
@@ -61,6 +61,10 @@ EditarJugadores::EditarJugadores():
 	fondo.setTexture(fondoImg);
 	fondo.setPosition(0,-100);
 	fondo.setScale(0.8,0.7);
+	
+	//	Opacidad del fondo
+	opacidad.setPosition(0,0);
+	opacidad.setFillColor(Color(0,0,0,128));
 	
 	
 	//	Fuente
@@ -223,6 +227,7 @@ void EditarJugadores::actualizar(Juego &juego) {
 void EditarJugadores::dibujar(RenderWindow &ventanita) {	
 	ventanita.clear();
 	ventanita.draw(fondo);
+	ventanita.draw(opacidad);
 	ventanita.draw(rectanguloGrande);
 	ventanita.draw(rectanguloSiguiente);
 	ventanita.draw(rectanguloEntrada);

@@ -14,6 +14,7 @@ class GanadoryMenu : public Escena {
 	private:
 		Texture fondoImg;
 		Sprite fondo;
+		RectangleShape opacidad;
 		string tipoEvento;
 		Font fuente;
 		Text ganadorTxt;

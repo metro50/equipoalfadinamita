@@ -25,6 +25,7 @@ private:
 	vector<Texture> piratas;
 	Texture fondoImg;
 	Sprite fondo;
+	RectangleShape opacidad;
 	Font fuente;
 	RectangleShape rectanguloGrande;
 	RectangleShape rectanguloSiguiente;
