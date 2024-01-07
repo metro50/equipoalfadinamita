@@ -16,7 +16,7 @@ Juego::Juego( Escena *esc ): ventana(VideoMode(800,600), "Batalla Pirata") {
 	if (!musica.openFromFile("cancion.ogg")) 
 		cout << "No se pudo cargar el tema" << endl;
 
-	musica.setVolume(20);
+	musica.setVolume(0);
 	musica.setLoop(true);
 	musica.play();
 }
@@ -71,6 +71,11 @@ int Juego::cantidadJugadores() {
 vector<jugador> Juego::obtenerJugadores() {
 	return jugadores;
 }
+void Juego::resetJugadores() {
+	for (int i = 0; i < 2; i++)
+		jugadores.pop_back();
+}
+
 
 
 

@@ -40,7 +40,7 @@ EditarJugadores::EditarJugadores():
 		avatar1.setPosition(200 + (80 * i),270);
 		if (avatars[i].id == avatarSeleccionado) 
 			avatar1.setOutlineThickness(3.f);
-		avatar1.setOutlineColor(sf::Color( 113, 204, 242));
+		avatar1.setOutlineColor(sf::Color( 51, 104, 116));
 		avatars[i].avatar = avatar1;
 		
 		RectangleShape avatar2(Vector2f(80.00,80.00));
@@ -48,7 +48,7 @@ EditarJugadores::EditarJugadores():
 		avatar2.setPosition(200 + (80 * i),350);
 		if (avatars[i+5].id == avatarSeleccionado) 
 			avatar2.setOutlineThickness(3.f);
-		avatar2.setOutlineColor(sf::Color( 113, 204, 242));
+		avatar2.setOutlineColor(sf::Color( 51, 104, 116));
 		avatars[i+5].avatar = avatar2;
 	}
 	
@@ -64,7 +64,7 @@ EditarJugadores::EditarJugadores():
 	
 	//	Opacidad del fondo
 	opacidad.setPosition(0,0);
-	opacidad.setFillColor(Color(0,0,0,128));
+	opacidad.setFillColor(Color(0,0,0,200));
 	
 	
 	//	Fuente
@@ -89,32 +89,40 @@ EditarJugadores::EditarJugadores():
 	
 	
 	//	Seccion Avatars
-	rectanguloAvatars.setFillColor(Color(51, 104, 116));
+	rectanguloAvatars.setFillColor(Color(185, 234, 255));
 	rectanguloAvatars.setPosition(200,270);
+	rectanguloAvatars.setOutlineColor(Color(185, 234, 255));
+	rectanguloAvatars.setOutlineThickness(2);
+	
 	
 	avatarTxt.setFont(fuente);
 	avatarTxt.setCharacterSize(30);
 	avatarTxt.setPosition(205,225);
 	avatarTxt.setString("Avatar");
-	avatarTxt.setFillColor(Color(51, 104, 116));
+	avatarTxt.setFillColor(Color(113, 204, 242));
+	avatarTxt.setOutlineColor(Color(0,0,0,20));
+	avatarTxt.setOutlineThickness(4);
+	
 	
 	
 	// Entrada Nombre
-	rectanguloEntrada.setFillColor(Color(51, 104, 116));
+	rectanguloEntrada.setFillColor(Color(185, 234, 255));
 	rectanguloEntrada.setPosition(200,145);
 	
 	nombreTxt.setFont(fuente);
 	nombreTxt.setCharacterSize(30);
 	nombreTxt.setPosition(205,100);
 	nombreTxt.setString("Nombre Jugador");
-	nombreTxt.setFillColor(Color(51, 104, 116));
+	nombreTxt.setFillColor(Color(113, 204, 242));
+	nombreTxt.setOutlineColor(Color(0,0,0,20));
+	nombreTxt.setOutlineThickness(4);
 
 	
 	nombreJugador.setFont(fuente);
 	nombreJugador.setCharacterSize(25);
 	nombreJugador.setPosition(215,160);
 	nombreJugador.setString("");
-	nombreJugador.setFillColor(Color(113, 204, 242));
+	nombreJugador.setFillColor(Color(51, 104, 116));
 	
 	nombreJugador.setString("Escribi tu nombre");
 	tipoEvento = "obtener jugadores";
@@ -170,11 +178,17 @@ void EditarJugadores::procesarEvento(Event &evento) {
 			nombreJugador.setString(nuevoNombre);
 		}
 	}
+	
+	if (evento.type == Event::MouseMoved) {
+		tipoEvento = "mouse";
+	}
 }
 
 void EditarJugadores::actualizar(Juego &juego) {	
 	if (
 		tipoEvento == "click"
+		&& nombreJugador.getString() != "Escribi tu nombre"
+		&& nombreJugador.getString() != ""
 		&& Mouse::getPosition(juego.obtenerVentana()).x >= 560 
 		&& Mouse::getPosition(juego.obtenerVentana()).x <= 560+225
 		&& Mouse::getPosition(juego.obtenerVentana()).y >= 510 
@@ -185,6 +199,18 @@ void EditarJugadores::actualizar(Juego &juego) {
 			juego.cambiarEscena(new Partida);
 		else 
 			juego.cambiarEscena(new EditarJugadores);
+	}
+		
+	if (
+		tipoEvento == "mouse"
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 560 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 560+225
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 510 
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 510+75
+	) {
+		rectanguloSiguiente.setFillColor(Color(113, 204, 242));
+	} else if (tipoEvento == "mouse") {
+		rectanguloSiguiente.setFillColor(Color(185,234,255));
 	}
 	
 	for (personaje avr: avatars) {
@@ -211,7 +237,7 @@ void EditarJugadores::actualizar(Juego &juego) {
 	
 	for (personaje &avr: avatars) {
 		if (avr.id == avatarSeleccionado)
-			avr.avatar.setOutlineThickness(3.f);
+			avr.avatar.setOutlineThickness(5.f);
 		else 
 			avr.avatar.setOutlineThickness(0.f);
 	}	
@@ -228,7 +254,7 @@ void EditarJugadores::dibujar(RenderWindow &ventanita) {
 	ventanita.clear();
 	ventanita.draw(fondo);
 	ventanita.draw(opacidad);
-	ventanita.draw(rectanguloGrande);
+//	ventanita.draw(rectanguloGrande);
 	ventanita.draw(rectanguloSiguiente);
 	ventanita.draw(rectanguloEntrada);
 	ventanita.draw(nombreTxt);

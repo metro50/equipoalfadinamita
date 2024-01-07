@@ -11,9 +11,18 @@
 class Partida : public Escena {
 	private:
 		Texture fondoImg;
+		Texture gradient;
 		Sprite fondo;
-		RectangleShape opacidad;
+		Sprite degrade;
 		string tipoEvento;
+		RectangleShape ctnBarcos;
+		vector<Texture> imgBarquitos;
+		vector<RectangleShape> barquitosSlc;
+		bool modal;
+		RectangleShape fondoModal;
+		Texture barcoSeleccionado;
+		vector<RectangleShape> opcionesBarco;
+		string orientacionBarco;
 	public:
 		Partida();
 		void actualizar (Juego & )override;

@@ -42,6 +42,7 @@ class Juego {
 		void desmutearMusica();
 		void agregarJugador(jugador);
 		int cantidadJugadores();
+		void resetJugadores();
 		vector<jugador> obtenerJugadores();
 };
 

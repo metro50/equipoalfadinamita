@@ -86,6 +86,9 @@ void GanadoryMenu::procesarEvento(Event &evento) {
 		cout << "Hiciste Click" << endl;
 		tipoEvento = "click";
 	}
+	if (evento.type == Event::MouseMoved) {
+		tipoEvento = "mouse";
+	}
 }
 
 void GanadoryMenu::actualizar (Juego &juego ) {
@@ -94,6 +97,7 @@ void GanadoryMenu::actualizar (Juego &juego ) {
 		juego.cambiarEscena(new Partida);
 	}
 	if (tipoEvento == "siguiente") {
+		juego.resetJugadores();
 		juego.cambiarEscena(new Menu);
 	}
 	if (
@@ -106,13 +110,36 @@ void GanadoryMenu::actualizar (Juego &juego ) {
 		juego.cambiarEscena(new Partida);
 	}
 	if (
+		tipoEvento == "mouse"
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 200 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 200+400
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 275 
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 275+70
+	) {
+		rectanguloRevancha.setFillColor(Color(113, 204, 242));
+	} else if (tipoEvento == "mouse") {
+		rectanguloRevancha.setFillColor(Color(185, 234, 255));		
+	}
+	if (
 		tipoEvento == "click"
 		&& Mouse::getPosition(juego.obtenerVentana()).x >= 200 
 		&& Mouse::getPosition(juego.obtenerVentana()).x <= 200+400
 		&& Mouse::getPosition(juego.obtenerVentana()).y >= 360
 		&& Mouse::getPosition(juego.obtenerVentana()).y <= 360+70
 	) {
+		juego.resetJugadores();
 		juego.cambiarEscena(new Menu);
+	}
+	if (
+		tipoEvento == "mouse"
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 200 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 200+400
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 360
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 360+70
+	) {
+		rectanguloVolver.setFillColor(Color(113, 204, 242));		
+	} else if (tipoEvento == "mouse") {
+		rectanguloVolver.setFillColor(Color(185, 234, 255));		
 	}
 	
 	tipoEvento = "";

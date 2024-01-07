@@ -77,6 +77,9 @@ void Menu::procesarEvento(Event &evento) {
 		cout << "Hiciste Click" << endl;
 		tipoEvento = "click";
 	}
+	if (evento.type == Event::MouseMoved) {
+		tipoEvento = "mouse";
+	}
 }
 void Menu::actualizar(Juego &juego) {
 	if (tipoEvento == "siguiente") {
@@ -110,6 +113,30 @@ void Menu::actualizar(Juego &juego) {
 			juego.desmutearMusica();
 			musica = !musica;
 		}
+	}
+		
+	if (
+		tipoEvento == "mouse"
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 250 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 250+300
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 250 
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 250+100
+	) {
+		rectangulo.setFillColor(Color(113, 204, 242));
+	} else if (tipoEvento == "mouse") {
+		rectangulo.setFillColor(Color(185,234,255));
+	}
+	
+	if (
+		tipoEvento == "mouse"
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 730 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 730+50
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 530 
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 530+50
+	) {
+		cuadroVolumen.setFillColor(Color(113, 204, 242));
+	} else if (tipoEvento == "mouse") {
+		cuadroVolumen.setFillColor(Color(185,234,255));
 	}
 	
 	tipoEvento = "";
