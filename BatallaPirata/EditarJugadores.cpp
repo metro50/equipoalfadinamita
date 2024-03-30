@@ -40,7 +40,7 @@ EditarJugadores::EditarJugadores():
 		avatar1.setPosition(200 + (80 * i),270);
 		if (avatars[i].id == avatarSeleccionado) 
 			avatar1.setOutlineThickness(3.f);
-		avatar1.setOutlineColor(sf::Color( 51, 104, 116));
+		avatar1.setOutlineColor(sf::Color(51, 104, 116));
 		avatars[i].avatar = avatar1;
 		
 		RectangleShape avatar2(Vector2f(80.00,80.00));
@@ -222,6 +222,16 @@ void EditarJugadores::actualizar(Juego &juego) {
 			&& Mouse::getPosition(juego.obtenerVentana()).y <= avr.avatar.getPosition().y + 80
 		) {
 			avatarSeleccionado = avr.id;
+		} 
+		if (
+			tipoEvento == "mouse"
+			&& Mouse::getPosition(juego.obtenerVentana()).x >= avr.avatar.getPosition().x
+			&& Mouse::getPosition(juego.obtenerVentana()).x <= avr.avatar.getPosition().x + 80
+			&& Mouse::getPosition(juego.obtenerVentana()).y >= avr.avatar.getPosition().y
+			&& Mouse::getPosition(juego.obtenerVentana()).y <= avr.avatar.getPosition().y + 80
+		) {
+			avr.avatar.setOutlineColor(Color(185, 234, 255));
+			avr.avatar.setOutlineThickness(2);
 		}
 	}
 		

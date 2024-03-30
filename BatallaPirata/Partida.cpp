@@ -12,7 +12,10 @@ using namespace std;
 
 Partida::Partida():
 	imgBarquitos(6), fondoModal(Vector2f(800.00,600.00)), modal(false),
-	barquitosSlc(6), ctnBarcos(Vector2f(250.00,350.00))
+	barquitosSlc(6), ctnBarcos(Vector2f(250.00,350.00)), 
+	rectanguloVert(Vector2f(400.00,150.00)), rectanguloHor(Vector2f(400.00,150.00)),
+	cuadradoVert(Vector2f(150.00,150.00)), cuadradoHor(Vector2f(150.00,150.00)),
+	orientacionElecta(true)
 {
 	if (!fondoImg.loadFromFile("fondo1.jpg")) {
 		cout << "No se pudo cargar la imagen" << endl;
@@ -63,6 +66,40 @@ Partida::Partida():
 	fondoModal.setPosition(0,0);
 	fondoModal.setFillColor(Color(0,0,0,150));
 	
+	rectanguloHor.setPosition(200,150);
+	rectanguloHor.setFillColor(Color(113, 204, 242));
+	
+	rectanguloVert.setPosition(200,325);
+	rectanguloVert.setFillColor(Color(113, 204, 242));
+	
+	cuadradoHor.setPosition(200,150);
+	cuadradoHor.setFillColor(Color(62, 162, 201));
+	
+	cuadradoVert.setPosition(200,325);
+	cuadradoVert.setFillColor(Color(62, 162, 201));
+	
+	if (!fuente.loadFromFile("PixelifySans-VariableFont_wght.ttf"))
+		cout << "No se pudo cargar la fuente" << endl;
+	
+	verticalTxt.setFont(fuente);
+	verticalTxt.setCharacterSize(30);
+	verticalTxt.setPosition(380,205);
+	verticalTxt.setString("Vertical");
+	verticalTxt.setFillColor(Color(51, 104, 116));
+	
+	horizontalTxt.setFont(fuente);
+	horizontalTxt.setCharacterSize(30);
+	horizontalTxt.setPosition(380,380);
+	horizontalTxt.setString("Horizontal");
+	horizontalTxt.setFillColor(Color(51, 104, 116));
+	
+	if (orientacionElecta) {
+		rectanguloHor.setOutlineColor(sf::Color(113, 204, 242));
+		rectanguloHor.setOutlineThickness(10.f);
+	} else {
+		rectanguloVert.setOutlineColor(sf::Color(113, 204, 242));
+		rectanguloVert.setOutlineThickness(10.f);
+	}
 	tipoEvento = "obtener jugadores";
 }
 
@@ -73,23 +110,61 @@ void Partida::procesarEvento(Event &evento) {
 	}
 	if (evento.type == Event::KeyPressed && evento.key.code == Keyboard::Escape) {
 		cout << "Tocaste ESCAPE" << endl;	
-//		tipoEvento = "volver";
+		tipoEvento = "volver";
 	}
 	if (evento.type == Event::MouseButtonPressed && evento.mouseButton.button == Mouse::Left) {
 		cout << "Hiciste Click" << endl;
 		tipoEvento = "click";
+	}
+	if (evento.type == Event::KeyPressed && evento.key.code == Keyboard::Down) {
+		cout << "Tocaste ABAJO" << endl;	
+		tipoEvento = "abajo";
+	}
+	if (evento.type == Event::KeyPressed && evento.key.code == Keyboard::Up) {
+		cout << "Tocaste ARRIBA" << endl;	
+		tipoEvento = "arriba";
 	}
 	
 }
 
 void Partida::actualizar (Juego & juego) {
 	if (tipoEvento == "siguiente") {
-		juego.cambiarEscena(new GanadoryMenu);
+		if (modal) {
+			cout << "seleccionaste el barco Nro " << barcoSeleccionadoId << endl;
+			cout << "en posicion " << (orientacionElecta ? "vertical" : "horizontal") << endl;
+			modal = false;
+		} else 
+			juego.cambiarEscena(new GanadoryMenu);
 	}
 	if (tipoEvento == "volver") {
-		juego.cambiarEscena(new EditarJugadores);
+		if (modal) {
+			modal = false;
+			opcionesBarco.resize(0);
+		} else 
+			juego.cambiarEscena(new EditarJugadores);
 	}
 	if (tipoEvento == "click") {
+		if (
+			modal
+			&& Mouse::getPosition(juego.obtenerVentana()).x >= 200 
+			&& Mouse::getPosition(juego.obtenerVentana()).x <= 600
+			&& Mouse::getPosition(juego.obtenerVentana()).y >= 150 
+			&& Mouse::getPosition(juego.obtenerVentana()).y <= 300
+		) {
+			cout << "seleccionaste el barco Nro " << barcoSeleccionadoId << endl;
+			cout << "en posicion " << (orientacionElecta ? "vertical" : "horizontal") << endl;
+			modal = false;
+		} else if (
+			modal
+			&& Mouse::getPosition(juego.obtenerVentana()).x >= 200 
+			&& Mouse::getPosition(juego.obtenerVentana()).x <= 600
+			&& Mouse::getPosition(juego.obtenerVentana()).y >= 325 
+			&& Mouse::getPosition(juego.obtenerVentana()).y <= 475
+		) {
+			cout << "seleccionaste el barco Nro " << barcoSeleccionadoId << endl;
+			cout << "en posicion " << (orientacionElecta ? "vertical" : "horizontal") << endl;
+			modal = false;
+		}
 		if (
 			Mouse::getPosition(juego.obtenerVentana()).x >= 590 
 			&& Mouse::getPosition(juego.obtenerVentana()).x <= 590+100
@@ -97,20 +172,22 @@ void Partida::actualizar (Juego & juego) {
 			&& Mouse::getPosition(juego.obtenerVentana()).y <= 30+40
 		) {
 			cout << "Seleccionaste el barco Nro 1" << endl;
+			barcoSeleccionadoId = 1;
 			if (!barcoSeleccionado.loadFromFile("barco0.png")) {
 				cout << "No se pudo cargar la imagen" << endl;
 			}
 			RectangleShape barcoVer(Vector2f(100.00,40.00));
-			barcoVer.setPosition(250,300);
+			barcoVer.setPosition(240+55,150+25);
 			barcoVer.setTexture(&barcoSeleccionado);
-			barcoVer.setScale(2,2);
+			//barcoVer.setScale(2,2);
 			barcoVer.setRotation(90);
 			
 			RectangleShape barcoHor(Vector2f(100.00,40.00));
-			barcoHor.setPosition(500,300);
+			barcoHor.setPosition(200+25,325+55);
 			barcoHor.setTexture(&barcoSeleccionado);
-			barcoHor.setScale(2,2);
+			//barcoHor.setScale(2,2);
 			
+			opcionesBarco.resize(0);
 			opcionesBarco.push_back(barcoVer);
 			opcionesBarco.push_back(barcoHor);
 			
@@ -122,20 +199,22 @@ void Partida::actualizar (Juego & juego) {
 			&& Mouse::getPosition(juego.obtenerVentana()).y <= 100+20
 		) {
 			cout << "Seleccionaste el barco Nro 2" << endl;
+			barcoSeleccionadoId = 2;
 			if (!barcoSeleccionado.loadFromFile("barco1.png")) {
 				cout << "No se pudo cargar la imagen" << endl;
 			}
 			RectangleShape barcoVer(Vector2f(140.00,20.00));
-			barcoVer.setPosition(250,300);
+			barcoVer.setPosition(220+65,130+20);
 			barcoVer.setTexture(&barcoSeleccionado);
-			barcoVer.setScale(2,2);
+			//barcoVer.setScale(2,2);
 			barcoVer.setRotation(90);
 			
 			RectangleShape barcoHor(Vector2f(140.00,20.00));
-			barcoHor.setPosition(500,300);
+			barcoHor.setPosition(180+20,325+65);
 			barcoHor.setTexture(&barcoSeleccionado);
-			barcoHor.setScale(2,2);
+			//barcoHor.setScale(2,2);
 			
+			opcionesBarco.resize(0);
 			opcionesBarco.push_back(barcoVer);
 			opcionesBarco.push_back(barcoHor);
 			modal = true;
@@ -146,20 +225,22 @@ void Partida::actualizar (Juego & juego) {
 		    && Mouse::getPosition(juego.obtenerVentana()).y <= 150+20
 		) {
 			cout << "Seleccionaste el barco Nro 3" << endl;
+			barcoSeleccionadoId = 3;
 			if (!barcoSeleccionado.loadFromFile("barco2.png")) {
 				cout << "No se pudo cargar la imagen" << endl;
 			}
 			RectangleShape barcoVer(Vector2f(100.00,20.00));
-			barcoVer.setPosition(250,300);
+			barcoVer.setPosition(220+65,150+25);
 			barcoVer.setTexture(&barcoSeleccionado);
-			barcoVer.setScale(2,2);
+			//barcoVer.setScale(2,2);
 			barcoVer.setRotation(90);
 			
 			RectangleShape barcoHor(Vector2f(100.00,20.00));
-			barcoHor.setPosition(500,300);
+			barcoHor.setPosition(200+25,325+65);
 			barcoHor.setTexture(&barcoSeleccionado);
-			barcoHor.setScale(2,2);
+			//barcoHor.setScale(2,2);
 			
+			opcionesBarco.resize(0);
 			opcionesBarco.push_back(barcoVer);
 			opcionesBarco.push_back(barcoHor);
 			modal = true;
@@ -170,20 +251,22 @@ void Partida::actualizar (Juego & juego) {
 		    && Mouse::getPosition(juego.obtenerVentana()).y <= 200+20
 		) {
 			cout << "Seleccionaste el barco Nro 4" << endl;
+			barcoSeleccionadoId = 4;
 			if (!barcoSeleccionado.loadFromFile("barco3.png")) {
 				cout << "No se pudo cargar la imagen" << endl;
 			}
 			RectangleShape barcoVer(Vector2f(80.00,20.00));
-			barcoVer.setPosition(250,300);
+			barcoVer.setPosition(225+65,150+35);
 			barcoVer.setTexture(&barcoSeleccionado);
-			barcoVer.setScale(2,2);
+			//barcoVer.setScale(2,2);
 			barcoVer.setRotation(90);
 			
 			RectangleShape barcoHor(Vector2f(80.00,20.00));
-			barcoHor.setPosition(500,300);
+			barcoHor.setPosition(205+35,325+65);
 			barcoHor.setTexture(&barcoSeleccionado);
-			barcoHor.setScale(2,2);
+			//barcoHor.setScale(2,2);
 			
+			opcionesBarco.resize(0);
 			opcionesBarco.push_back(barcoVer);
 			opcionesBarco.push_back(barcoHor);
 			
@@ -195,20 +278,22 @@ void Partida::actualizar (Juego & juego) {
 			&& Mouse::getPosition(juego.obtenerVentana()).y <= 250+20
 		) {
 			cout << "Seleccionaste el barco Nro 5" << endl;
+			barcoSeleccionadoId = 5;
 			if (!barcoSeleccionado.loadFromFile("barco4.png")) {
 				cout << "No se pudo cargar la imagen" << endl;
 			}
 			RectangleShape barcoVer(Vector2f(80.00,20.00));
-			barcoVer.setPosition(250,300);
+			barcoVer.setPosition(220+65,150+35);
 			barcoVer.setTexture(&barcoSeleccionado);
-			barcoVer.setScale(2,2);
+			//barcoVer.setScale(2,2);
 			barcoVer.setRotation(90);
 			
 			RectangleShape barcoHor(Vector2f(80.00,20.00));
-			barcoHor.setPosition(500,300);
+			barcoHor.setPosition(200+35,325+65);
 			barcoHor.setTexture(&barcoSeleccionado);
-			barcoHor.setScale(2,2);
+			//barcoHor.setScale(2,2);
 			
+			opcionesBarco.resize(0);
 			opcionesBarco.push_back(barcoVer);
 			opcionesBarco.push_back(barcoHor);
 			
@@ -220,20 +305,22 @@ void Partida::actualizar (Juego & juego) {
 			&& Mouse::getPosition(juego.obtenerVentana()).y <= 300+20
 		) {
 			cout << "Seleccionaste el barco Nro 6" << endl;
+			barcoSeleccionadoId = 6;
 			if (!barcoSeleccionado.loadFromFile("barco5.png")) {
 				cout << "No se pudo cargar la imagen" << endl;
 			}
 			RectangleShape barcoVer(Vector2f(60.00,20.00));
-			barcoVer.setPosition(250,300);
+			barcoVer.setPosition(220+65,150+45);
 			barcoVer.setTexture(&barcoSeleccionado);
-			barcoVer.setScale(2,2);
+			//barcoVer.setScale(2,2);
 			barcoVer.setRotation(90);
 			
 			RectangleShape barcoHor(Vector2f(60.00,20.00));
-			barcoHor.setPosition(500,300);
+			barcoHor.setPosition(200+45,325+65);
 			barcoHor.setTexture(&barcoSeleccionado);
-			barcoHor.setScale(2,2);
+			//barcoHor.setScale(2,2);
 			
+			opcionesBarco.resize(0);
 			opcionesBarco.push_back(barcoVer);
 			opcionesBarco.push_back(barcoHor);
 			
@@ -256,6 +343,42 @@ void Partida::actualizar (Juego & juego) {
 		
 		tipoEvento == "";
 	}
+	
+	if (
+		modal
+		&& Mouse::getPosition(juego.obtenerVentana()).x >= 200 
+		&& Mouse::getPosition(juego.obtenerVentana()).x <= 600
+		&& Mouse::getPosition(juego.obtenerVentana()).y >= 150 
+		&& Mouse::getPosition(juego.obtenerVentana()).y <= 300
+	) {
+		rectanguloHor.setFillColor(Color(62, 162, 201));
+		rectanguloVert.setFillColor(Color(113, 204, 242));
+	} else if (
+	   modal
+	   && Mouse::getPosition(juego.obtenerVentana()).x >= 200 
+	   && Mouse::getPosition(juego.obtenerVentana()).x <= 600
+	   && Mouse::getPosition(juego.obtenerVentana()).y >= 325 
+	   && Mouse::getPosition(juego.obtenerVentana()).y <= 475
+    ) {
+		rectanguloVert.setFillColor(Color(62, 162, 201));
+		rectanguloHor.setFillColor(Color(113, 204, 242));
+	} else {
+	   rectanguloHor.setFillColor(Color(113, 204, 242));
+	   rectanguloVert.setFillColor(Color(113, 204, 242));
+	}
+	
+	if (modal && (tipoEvento == "arriba" || tipoEvento == "abajo")) 
+		orientacionElecta = !orientacionElecta;
+	
+	if (orientacionElecta) {
+		rectanguloHor.setOutlineColor(sf::Color(113, 204, 242));
+		rectanguloHor.setOutlineThickness(10.f);
+		rectanguloVert.setOutlineThickness(0.f);
+	} else {
+		rectanguloVert.setOutlineColor(sf::Color(113, 204, 242));
+		rectanguloVert.setOutlineThickness(10.f);
+		rectanguloHor.setOutlineThickness(0.f);
+	}	
 
 	tipoEvento = "";
 }
@@ -268,9 +391,16 @@ void Partida::dibujar (RenderWindow & ventanita) {
 	ventanita.draw(jugadores[1].avatar.avatar);
 	for (RectangleShape &brq: barquitosSlc) 
 		ventanita.draw(brq);
-	if (modal)
+	if (modal) {
 		ventanita.draw(fondoModal);
-	for (RectangleShape &opt: opcionesBarco)
-		ventanita.draw(opt);
+		ventanita.draw(rectanguloVert);
+		ventanita.draw(rectanguloHor);
+		ventanita.draw(cuadradoHor);
+		ventanita.draw(cuadradoVert);
+		ventanita.draw(verticalTxt);
+		ventanita.draw(horizontalTxt);
+		for (RectangleShape &opt: opcionesBarco)
+			ventanita.draw(opt);		
+	}	
 }
 

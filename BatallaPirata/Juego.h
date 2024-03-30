@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Image.hpp>
 #include <vector>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include "tablero.h"
 using namespace sf;
 using namespace std;
 
